@@ -15,9 +15,8 @@ const dashboard = _import('dashboard/index');
 /* error page */
 const Err404 = _import('404');
 
-/* demo page */
+/* form page */
 const Form = _import('page/form');
-const Table = _import('table/index');
 
 Vue.use(Router);
 
@@ -57,16 +56,6 @@ export const asyncRouterMap = [
     children: [
       { path: 'index', component: Form, name: '表单', icon: 'zonghe' }
     ]
-  },
-
-  {
-    path: '/table',
-    component: Layout,
-    redirect: '/table/index',
-    name: 'Table',
-    icon: 'tubiaoleixingzhengchang',
-    noDropdown: true,
-    children: [{ path: 'index', component: Table, name: 'Table', meta: { role: ['admin'] } }]
   },
 
   { path: '*', redirect: '/404', hidden: true }

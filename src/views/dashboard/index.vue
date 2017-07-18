@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
-    <div class='dashboard-text'>name:{{name}}</div>
-    <div class='dashboard-text'>role:<span v-for='role in roles' :key='role'>{{role}}</span></div>
+    <div class='dashboard-text'>这是一个看板，这里可以放任何你需要放的东西。现在只放了用户名。</div>
+    <div class='dashboard-text'>你是谁:{{name}}</div>
   </div>
 </template>
 
@@ -11,8 +11,7 @@
       name: 'dashboard',
       computed: {
         ...mapGetters([
-          'name',
-          'roles'
+          'name'
         ])
       }
     }
