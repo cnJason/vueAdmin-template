@@ -1,16 +1,16 @@
 <template>
     <el-menu class="navbar" mode="horizontal">
-        <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-        <levelbar></levelbar>
+        <Hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></Hamburger>
+        <BreadCrumb></BreadCrumb>
         <el-dropdown class="avatar-container" trigger="click">
             <div class="avatar-wrapper">
-                <img class="user-avatar" :src="avatar+'?imageView2/1/w/80/h/80'">
+                {{name}}
                 <i class="el-icon-caret-bottom"></i>
             </div>
             <el-dropdown-menu class="user-dropdown" slot="dropdown">
                 <router-link class='inlineBlock' to="/">
                     <el-dropdown-item>
-                        Home
+                        主页
                     </el-dropdown-item>
                 </router-link>
                 <el-dropdown-item divided><span @click="logout" style="display:block;">退出登录</span></el-dropdown-item>
@@ -21,18 +21,18 @@
 
 <script>
     import { mapGetters } from 'vuex';
-    import Levelbar from './Levelbar';
+    import BreadCrumb from './BreadCrumb';
     import Hamburger from '@/components/Hamburger';
 
     export default {
       components: {
-        Levelbar,
+        BreadCrumb,
         Hamburger
       },
       computed: {
         ...mapGetters([
           'sidebar',
-          'avatar'
+          'name'
         ])
       },
       methods: {

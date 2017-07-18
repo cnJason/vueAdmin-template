@@ -52,10 +52,10 @@ export const asyncRouterMap = [
     path: '/example',
     component: Layout,
     redirect: 'noredirect',
-    name: 'Example',
+    name: '测试报表',
     icon: 'zujian',
     children: [
-      { path: 'index', component: Form, name: 'Form', icon: 'zonghe' }
+      { path: 'index', component: Form, name: '表单', icon: 'zonghe' }
     ]
   },
 

@@ -4,9 +4,7 @@
       class="card-box login-form">
       <h3 class="title">系统登录</h3>
       <el-form-item prop="email">
-        <span class="svg-container">
-                  <icon-svg icon-class="jiedianyoujian"></icon-svg>
-                </span>
+        <span class="svg-container"> <icon-svg icon-class="jiedianyoujian"></icon-svg></span>
         <el-input name="email" type="text" v-model="loginForm.email" autoComplete="on" placeholder="邮箱"></el-input>
       </el-form-item>
       <el-form-item prop="password">
@@ -21,25 +19,16 @@
           登录
         </el-button>
       </el-form-item>
-      <div class='tips'>admin账号为:admin@wallstreetcn.com 密码随便填</div>
-      <div class='tips'>editor账号:editor@wallstreetcn.com 密码随便填</div>
+      <div class='tips'>admin账号为:admin 密码随便填</div>
+      <div class='tips'>editor账号:editor 密码随便填</div>
     </el-form>
   </div>
 </template>
 
 <script>
-    import { isWscnEmail } from '@/utils/validate';
-
     export default {
       name: 'login',
       data() {
-        const validateEmail = (rule, value, callback) => {
-          if (!isWscnEmail(value)) {
-            callback(new Error('请输入正确的合法邮箱'));
-          } else {
-            callback();
-          }
-        };
         const validatePass = (rule, value, callback) => {
           if (value.length < 6) {
             callback(new Error('密码不能小于6位'));
@@ -49,12 +38,12 @@
         };
         return {
           loginForm: {
-            email: 'admin@wallstreetcn.com',
+            email: 'admin',
             password: '111111'
           },
           loginRules: {
             email: [
-                { required: true, trigger: 'blur', validator: validateEmail }
+                { required: true, trigger: 'blur' }
             ],
             password: [
                 { required: true, trigger: 'blur', validator: validatePass }
