@@ -8,6 +8,8 @@
                 <el-input v-model="saveReport.tool"></el-input>
             </el-form-item>
         </el-form>
+
+        <hr/>
         <el-form :model="saveReport" ref="saveReport" :inline="true" v-for="(item, index) in saveReport.items">
             <el-form-item
                     :label="'功能点'"
@@ -24,25 +26,25 @@
                     <el-form-item
                             :label="'测试项'"
                             :key="item.testItem"
-                            :prop="'saveItems.' + index + '.testItem'">
-                        <el-input v-model="item.testItem"></el-input>
+                            :prop="'saveItems.' + index + '.testItem'" >
+                        <el-input v-model="item.testItem"style="width: 350px"></el-input>
                     </el-form-item>
                     <el-form-item :label="'类型'"
                                   :key="item.type"
                                   :prop="'saveItems.' + index + '.type'">
-                        <el-select v-model="item.type" placeholder="类型">
+                        <el-select v-model="item.type" placeholder="类型" style="width: 150px">
                             <el-option
                                     v-for="item in typeOption"
                                     :key="item.label"
                                     :label="item.label"
-                                    :value="item.label">
+                                    :value="item.label" >
                             </el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item :label="'风险等级'"
                                   :key="item.level"
                                   :prop="'saveItems.' + index + '.level'">
-                        <el-select v-model="item.level" placeholder="风险等级">
+                        <el-select v-model="item.level" placeholder="风险等级" style="width: 120px">
                             <el-option
                                     v-for="level in levelOption"
                                     :key="level.label"
@@ -54,7 +56,7 @@
                     <el-form-item :label="'评测结果'"
                                   :key="item.result"
                                   :prop="'saveItems.' + index + '.result'">
-                        <el-select v-model="item.result" placeholder="评测结果">
+                        <el-select v-model="item.result" placeholder="评测结果" style="width: 120px">
                             <el-option
                                     v-for="result in resultOption"
                                     :key="result.label"
@@ -75,26 +77,27 @@
 
         <hr/>
         <hr/>
+
         <el-table :data="saveTable" style="width: 100%">
             <el-table-column type="expand">
                 <template scope="props">
                     <el-form label-position="left" class="demo-table-expand">
-                        <el-form-item label="测试项目名称">
+                        <el-form-item label="测试项目名称：">
                             {{ props.row.name }}
                         </el-form-item>
-                        <el-form-item label="问题描述">
+                        <el-form-item label="问题描述：">
                             <span>{{ props.row.desc }}</span>
                         </el-form-item>
-                        <el-form-item label="检测流程">
+                        <el-form-item label="检测流程：">
                             <span>{{ props.row.activiti }}</span>
                         </el-form-item>
-                        <el-form-item label="评测输出">
+                        <el-form-item label="评测输出：">
                             <span>{{ props.row.output }}</span>
                         </el-form-item>
-                        <el-form-item label="评价输出">
+                        <el-form-item label="评价输出：">
                             <span>{{ props.row.output }}</span>
                         </el-form-item>
-                        <el-form-item label="修复建议">
+                        <el-form-item label="修复建议：">
                             <span>{{ props.row.subscribe }}</span>
                         </el-form-item>
                     </el-form>
@@ -106,13 +109,79 @@
             </el-table-column>
             <el-table-column label="评测结果" prop="result">
             </el-table-column>
+
+            <el-table-column label="操作">
+                <template scope="scope">
+                    <el-button @click="deleteRow(scope.$index, saveTable)" type="text" size="small">删除</el-button>
+                    <!--<el-button @click = "newTabel = true" type="text" size="small" >编辑</el-button>-->
+                </template>
+            </el-table-column>
         </el-table>
 
         <el-form :model="saveReport" ref="saveReport" label-width="100px">
             <el-form-item align="right">
-                <el-button @click="addTableItem()">加一列</el-button>
+                <el-button @click="newTabel = true">加一列</el-button>
             </el-form-item>
         </el-form>
+
+        <el-dialog title="编辑功能清单" :visible.sync="newTabel">
+            <el-form :model="saveTable" ref="saveTable" label-width="100px">
+                <el-form-item  label="功能清单：">
+                    <el-input v-model="saveTable.description"></el-input>
+                </el-form-item>
+
+                <el-form-item label="风险等级：">
+                    <el-radio-group v-model="saveTable.level">
+                        <el-radio label="低"></el-radio>
+                        <el-radio label="中"></el-radio>
+                        <el-radio label="高"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+                <el-form-item label="评测结果：">
+                    <el-radio-group v-model="saveTable.result">
+                        <el-radio label="高危"></el-radio>
+                        <el-radio label="低风险"></el-radio>
+                        <el-radio label="安全"></el-radio>
+                    </el-radio-group>
+                </el-form-item>
+
+
+                <el-form-item  label="项目名称：">
+                    <el-input v-model="saveTable.name"></el-input>
+                </el-form-item>
+                <el-form-item  label="问题描述：">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容："
+                            v-model="saveTable.desc">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="检查流程：">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容："
+                            v-model="saveTable.activiti">
+                    </el-input>
+                </el-form-item>
+                <el-form-item label="评价输出：">
+                    <el-input v-model="saveTable.output"></el-input>
+                </el-form-item>
+                <el-form-item label="修复建议：">
+                    <el-input
+                            type="textarea"
+                            :rows="2"
+                            placeholder="请输入内容："
+                            v-model="saveTable.subscribe">
+                    </el-input>
+                </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="newTabel = false">取 消</el-button>
+                    <el-button type="primary" @click="addTableItem(saveTable);newTabel = false">确 定</el-button>
+                </div>
+        </el-dialog>
     </div>
 </template>
 
@@ -123,6 +192,7 @@
         components: {ElForm},
         data() {
             return {
+                newTabel:false,
                 saveReport: {
                     environment: '',
                     tool: '',
@@ -150,51 +220,7 @@
                 }, {
                     label: '安全'
                 }],
-                saveTable: [{
-                    description: '人物移动：可以造成瞬移，一飞冲天',
-                    level: '高',
-                    result: '高危',
-                    name: '人物移动',
-                    desc: '问题描述',
-                    activiti: '1.\t拦截游戏封包数据，并进行观察\n' +
-                    '2.\t得知在人物飞行时候，判断当前坐标\n',
-                    output: '高风险\n' +
-                    '1.使用本地坐标进行飞行，这是十分危险的事情，玩家可以修改坐标进行瞬移等操作',
-                    subscribe: ''
-                }, {
-                    description: '人物移动：可以造成瞬移，一飞冲天',
-                    level: '高',
-                    result: '高危',
-                    name: '人物移动',
-                    desc: '问题描述',
-                    activiti: '1.\t拦截游戏封包数据，并进行观察\n' +
-                    '2.\t得知在人物飞行时候，判断当前坐标\n',
-                    output: '高风险\n' +
-                    '1.使用本地坐标进行飞行，这是十分危险的事情，玩家可以修改坐标进行瞬移等操作',
-                    subscribe: ''
-                }, {
-                    description: '人物移动：可以造成瞬移，一飞冲天',
-                    level: '高',
-                    result: '高危',
-                    name: '人物移动',
-                    desc: '问题描述',
-                    activiti: '1.\t拦截游戏封包数据，并进行观察\n' +
-                    '2.\t得知在人物飞行时候，判断当前坐标\n',
-                    output: '高风险\n' +
-                    '1.使用本地坐标进行飞行，这是十分危险的事情，玩家可以修改坐标进行瞬移等操作',
-                    subscribe: ''
-                }, {
-                    description: '人物移动：可以造成瞬移，一飞冲天',
-                    level: '高',
-                    result: '高危',
-                    name: '人物移动',
-                    desc: '问题描述',
-                    activiti: '1.\t拦截游戏封包数据，并进行观察\n' +
-                    '2.\t得知在人物飞行时候，判断当前坐标\n',
-                    output: '高风险\n' +
-                    '1.使用本地坐标进行飞行，这是十分危险的事情，玩家可以修改坐标进行瞬移等操作',
-                    subscribe: ''
-                }]
+                saveTable:[],
             }
         },
         methods: {
@@ -203,7 +229,6 @@
                     point: '',
                     key: Date.now()
                 })
-                console.log(this.saveReport.items.length);
             },
             deleteItem(item, pIndex) {
                 var index = this.saveReport.items.indexOf(item)
@@ -234,19 +259,20 @@
                     key: Date.now()
                 })
             },
-            addTableItem() {
+            addTableItem(tableItem) {
                 this.saveTable.push({
-                    description: '人物移动：可以造成瞬移，一飞冲天',
-                    level: '高',
-                    result: '高危',
-                    name: '人物移动',
-                    desc: '问题描述',
-                    activiti: '1.\t拦截游戏封包数据，并进行观察\n' +
-                    '2.\t得知在人物飞行时候，判断当前坐标\n',
-                    output: '高风险\n' +
-                    '1.使用本地坐标进行飞行，这是十分危险的事情，玩家可以修改坐标进行瞬移等操作',
-                    subscribe: ''
+                    description: tableItem.description,
+                    level: tableItem.level,
+                    result: tableItem.result,
+                    name: tableItem.name,
+                    desc: tableItem.desc,
+                    activiti: tableItem.activiti,
+                    output: tableItem.output,
+                    subscribe: tableItem.subscribe,
                 })
+            },
+            deleteRow(index, rows) {
+                rows.splice(index, 1);
             }
         }
     }
