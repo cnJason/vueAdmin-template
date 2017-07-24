@@ -18,6 +18,11 @@ const Err404 = _import('404');
 /* form page */
 const Form = _import('page/form');
 
+/* add report */
+const addReport = _import('page/report/add');
+
+
+
 Vue.use(Router);
 
  /**
@@ -54,7 +59,8 @@ export const asyncRouterMap = [
     name: '测试报表',
     icon: 'zujian',
     children: [
-      { path: 'index', component: Form, name: '表单', icon: 'zonghe' }
+      { path: 'index', component: Form, name: '表单', icon: 'zonghe' },
+      { path: 'addReport', component: addReport, name: '增加报告', icon: 'zonghe' }
     ]
   },
 

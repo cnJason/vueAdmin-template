@@ -9,6 +9,7 @@
             </el-form-item>
         </el-form>
 
+        <hr/>
         <el-form :model="saveReport" ref="saveReport" :inline="true" v-for="(item, index) in saveReport.items"
                  :key="index">
             <el-form-item
@@ -120,7 +121,6 @@
         <el-form :model="saveReport" ref="saveReport" label-width="100px">
             <el-form-item align="right">
                 <el-button @click="showVisible(true)">加一列</el-button>
-                <el-button @click="addReport()">保存</el-button>
             </el-form-item>
         </el-form>
 
@@ -183,11 +183,10 @@
             </div>
         </el-dialog>
     </div>
-
 </template>
 
 <script>
-    import {addReport} from '@/api/form';
+    import {getReportList} from '@/api/form';
 
     export default {
         data() {
@@ -288,9 +287,8 @@
             showVisible(flag) {
                 this.newTabel = flag;
             },
-            addReport(){
-                addReport(this.saveForm).then(response => {
-                    this.$router.push({ path: '/' });
+            fetchData() {
+                getReportList().then(response => {
                 })
             }
         }
