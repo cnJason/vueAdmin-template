@@ -289,7 +289,10 @@
                 this.newTabel = flag;
             },
             addReport(){
-                addReport(this.saveForm).then(response => {
+                console.log(this.saveReport);
+                addReport(this.saveReport).then(response => {
+                    console.log(this.saveReport);
+
                     this.$router.push({ path: '/' });
                 })
             }
