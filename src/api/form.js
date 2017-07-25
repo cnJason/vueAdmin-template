@@ -4,7 +4,9 @@ export function addReport(reportForm) {
   return fetch({
     url: '/reports',
     method: 'post',
-    reportForm
+    data: {
+      reportForm
+    }
   });
 }
 
