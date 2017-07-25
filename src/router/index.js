@@ -21,7 +21,8 @@ const Form = _import('page/form');
 /* add report */
 const addReport = _import('page/report/add');
 
-
+/* reportList */
+const reportList = _import('page/report/List');
 
 Vue.use(Router);
 
@@ -60,7 +61,8 @@ export const asyncRouterMap = [
     icon: 'zujian',
     children: [
       { path: 'index', component: Form, name: '表单', icon: 'zonghe' },
-      { path: 'addReport', component: addReport, name: '增加报告', icon: 'zonghe' }
+      { path: 'addReport', component: addReport, name: '增加报告', icon: 'zonghe' },
+      { path: 'reportList', component: reportList, name: '报告列表', icon: 'zonghe' }
     ]
   },
 
